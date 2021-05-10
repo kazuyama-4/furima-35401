@@ -14,7 +14,8 @@ class User < ApplicationRecord
     end
     validates :nickname
     validates :birth
-    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'Include both letters and numbers' }
+    validates :password,
+              format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'Include both letters and numbers' }
   end
   has_many :items
 end
