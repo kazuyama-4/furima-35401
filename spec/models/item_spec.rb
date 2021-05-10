@@ -88,6 +88,16 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price Half-width number')
       end
+      it '商品価格が半角英数字混合では出品できない' do
+        @item.price = '3000a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Half-width number')
+      end
+      it '商品価格が半角英字のみでは出品できない' do
+        @item.price = 'three thousand'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price Half-width number')
+      end
       it '販売価格を超えた場合(300円より低い場合)、出品できない' do
         @item.price = 200
         @item.valid?
