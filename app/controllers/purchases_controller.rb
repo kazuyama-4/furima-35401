@@ -1,10 +1,10 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: %i[index]
   before_action :set_item, only: %i[index create]
+  before_action :order_item, only: %i[index create]
 
   def index
     @order = Order.new
-    redirect_to root_path if current_user.id == @item.user_id || @item.purchase.present?
   end
 
   def create
@@ -28,6 +28,10 @@ class PurchasesController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def order_item
+    redirect_to root_path if current_user.id == @item.user_id || @item.purchase.present?
   end
 
   def pay_item
