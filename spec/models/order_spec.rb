@@ -27,7 +27,7 @@ RSpec.describe Order, type: :model do
                                                        'Postal is invalid. Enter it as follows(e.g. 123-4567)')
       end
       it 'postalが半角のハイフンを含んだ正しい形式でないと購入できないこと' do
-        @order.postal = 1_234_567
+        @order.postal = '123_4567'
         @order.valid?
         expect(@order.errors.full_messages).to include('Postal is invalid. Enter it as follows(e.g. 123-4567)')
       end

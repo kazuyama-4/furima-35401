@@ -1,7 +1,6 @@
 class Order
   include ActiveModel::Model
-  attr_accessor :token, :user_id, :item_id, :postal, :prefecture_id, :city, :house_number, :building, :call_number,
-                :purchase_id
+  attr_accessor :token, :user_id, :item_id, :postal, :prefecture_id, :city, :house_number, :building, :call_number
 
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
   with_options presence: true do
