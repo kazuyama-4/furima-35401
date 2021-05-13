@@ -53,7 +53,17 @@ RSpec.describe Order, type: :model do
                                                        'Call number is invalid. Input only number')
       end
       it 'call_numberが11桁以下の場合、購入できないこと' do
-        @order.call_number = '090123'
+        @order.call_number = '0901234567'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Call number is too short')
+      end
+      it 'call_numberが9桁以内の場合、購入できないこと' do
+        @order.call_number = '090123456'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Call number is too short')
+      end
+      it 'call_numberが12桁以上の場合、購入できないこと' do
+        @order.call_number = '090123456789'
         @order.valid?
         expect(@order.errors.full_messages).to include('Call number is too short')
       end
@@ -67,6 +77,16 @@ RSpec.describe Order, type: :model do
         @order.token = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが空では購入できないこと' do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが空では購入できないこと' do
+        @order.item_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
