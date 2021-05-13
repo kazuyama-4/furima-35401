@@ -65,7 +65,7 @@ RSpec.describe Order, type: :model do
       it 'call_numberが12桁以上の場合、購入できないこと' do
         @order.call_number = '090123456789'
         @order.valid?
-        expect(@order.errors.full_messages).to include('Call number is too short')
+        expect(@order.errors.full_messages).to include('Call number is too long')
       end
       it 'call_numberが数字ではないと購入できないこと' do
         @order.call_number = '零九零一二三四五六七八'

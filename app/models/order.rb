@@ -12,7 +12,8 @@ class Order
     validates :city
     validates :house_number
     with_options format: { with: /\A\d{11}\z/, message: 'is too short' } do
-      validates :call_number, numericality: { only_integer: true, message: 'is invalid. Input only number' }
+      validates :call_number, numericality: { only_integer: true, message: 'is invalid. Input only number' },
+                              length: { maximum: 11, message: 'is too long' }
     end
   end
 
